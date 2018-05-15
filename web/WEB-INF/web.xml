@@ -8,6 +8,10 @@
         <param-value>classpath:application-context.xml</param-value>
     </context-param>
 
+    <listener>
+        <description>配置Spring上下文监听器</description>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
 
     <servlet-mapping>
         <servlet-name>springmvc</servlet-name>
