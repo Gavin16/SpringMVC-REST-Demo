@@ -1,11 +1,10 @@
 package com.test.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.test.domain.UserDTO;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @Title: ${FILE_NAME}
@@ -17,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/test")
 @PropertySource(value = {"classpath:abc.properties","classpath:def.properties"})
-public class TestProperties {
+public class TestProperties{
 
     @Value("${user.nickname}")
     private String name;
@@ -28,7 +27,7 @@ public class TestProperties {
     @Value("${user.gender}")
     private String gender;
 
-    @GetMapping(value = "/method")
+    @GetMapping(value = "/getMethod")
     public Object getValue(){
         System.out.println("getValue called"+",name is "+name);
         UserDTO user = new UserDTO();
@@ -38,4 +37,15 @@ public class TestProperties {
         return user;
     }
 
+    @PostMapping(value = "/postMethod")
+    public Object postValue(@RequestBody String uername){
+        JSONObject json = JSONObject.parseObject(uername);
+        String jsonName = json.getString("username");
+
+        UserDTO user = new UserDTO();
+        user.setName(jsonName);
+        user.setAge(age);
+        user.setGender(gender);
+        return user;
+    }
 }
