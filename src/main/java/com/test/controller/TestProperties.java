@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/test")
-@PropertySource(value = {"classpath:*.properties"})
+@PropertySource(value = {"classpath:abc.properties","classpath:def.properties"})
 public class TestProperties {
 
     @Value("${user.nickname}")
