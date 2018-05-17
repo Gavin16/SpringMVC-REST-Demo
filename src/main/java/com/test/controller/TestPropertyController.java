@@ -7,7 +7,6 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * @Title: ${FILE_NAME}
  * @Package: com.test.controller
  * @Description:
  * @author: Minsky
@@ -16,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/test")
 @PropertySource(value = {"classpath:abc.properties","classpath:def.properties"})
-public class TestProperties{
+public class TestPropertyController {
 
     @Value("${user.nickname}")
     private String name;

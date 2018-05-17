@@ -1,7 +1,6 @@
 package com.test.domain;
 
 /**
- * @Title: test-normal-controller
  * @Package com.test.domain
  * @Description:
  * @author: Minsky
