@@ -1,4 +1,4 @@
-package com.test.config;
+package com.demo.config;
 
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import org.springframework.context.annotation.Bean;
@@ -11,7 +11,7 @@ import java.nio.charset.Charset;
 import java.util.Arrays;
 
 /**
- * @Package com.test.config
+ * @Package com.demo.config
  * @Description: 配置类暂未生效
  * @author: Minsky
  * @date 2018/5/16 14:36
@@ -31,7 +31,6 @@ public class JsonParamConfig extends WebMvcConfigurerAdapter {
 
     @Bean
     public StringHttpMessageConverter getConverter(){
-        System.out.println("+++++++++++++++++++");
         StringHttpMessageConverter converter = new StringHttpMessageConverter();
         converter.setSupportedMediaTypes(Arrays.asList(MediaType.APPLICATION_JSON_UTF8));
         return converter;
@@ -40,7 +39,6 @@ public class JsonParamConfig extends WebMvcConfigurerAdapter {
     @Bean
     public FastJsonHttpMessageConverter getJsonConverter(){
         FastJsonHttpMessageConverter converter = new FastJsonHttpMessageConverter();
-        System.out.println("***********************");
         converter.setDefaultCharset(Charset.forName("UTF-8"));
         converter.setSupportedMediaTypes(Arrays.asList(MediaType.APPLICATION_JSON_UTF8,MediaType.TEXT_HTML));
         return converter;

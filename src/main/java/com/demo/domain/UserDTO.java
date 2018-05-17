@@ -1,7 +1,7 @@
-package com.test.domain;
+package com.demo.domain;
 
 /**
- * @Package com.test.domain
+ * @Package com.demo.domain
  * @Description:
  * @author: Minsky
  * @date 2018/5/16 14:19

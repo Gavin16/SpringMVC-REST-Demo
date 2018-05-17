@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.test</groupId>
-    <artifactId>test-normal-config</artifactId>
+    <artifactId>springmvc-rest-demo</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <!-- IDEA 源代码版本设置为jdk1.5，目标代码设置为jdk1.5,手动配置修改 -->
@@ -15,34 +15,43 @@
     </properties>
 
     <dependencies>
+        <!-- springmvc 项目jar包依赖 -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
             <version>4.3.14.RELEASE</version>
         </dependency>
-
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
             <version>4.3.14.RELEASE</version>
         </dependency>
-
+        <!-- json数据转化依赖 -->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
             <version>1.2.33</version>
         </dependency>
+        <!-- slf4j + logback 日志依赖 -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.2.3</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+            <version>1.2.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.25</version>
+        </dependency>
 
-        <!--<dependency>-->
-            <!--<groupId>com.fasterxml.jackson.core</groupId>-->
-            <!--<artifactId>jackson-core</artifactId>-->
-            <!--<version>2.5.2</version>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>com.fasterxml.jackson.core</groupId>-->
-            <!--<artifactId>jackson-databind</artifactId>-->
-            <!--<version>2.5.2</version>-->
-        <!--</dependency>-->
+
+
+
 
     </dependencies>
 </project>
