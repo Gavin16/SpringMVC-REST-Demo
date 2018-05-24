@@ -62,8 +62,74 @@
             <artifactId>druid</artifactId>
             <version>1.0.6</version>
         </dependency>
-
-
-
     </dependencies>
+
+
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <env.devMode>dev</env.devMode>
+                <skipAssemblyDEV>false</skipAssemblyDEV>
+                <skipAssemblyUAT>true</skipAssemblyUAT>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>uat</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+
+            <properties>
+                <env.devMode>uat</env.devMode>
+                <skipAssemblyDEV>true</skipAssemblyDEV>
+                <skipAssemblyUAT>false</skipAssemblyUAT>
+            </properties>
+        </profile>
+    </profiles>
+
+    <!-- 使用 assembly 插件来打包项目 -->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.0.0</version>
+                <executions>
+                    <execution>
+                        <id>assembly-dev</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <skipAssembly>${skipAssemblyDEV}</skipAssembly>
+                            <descriptors>
+                                <descriptor>src/main/assembly/dev/assembly.xml</descriptor>
+                            </descriptors>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>assembly-uat</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <skipAssembly>${skipAssemblyUAT}</skipAssembly>
+                            <descriptors>
+                                <descriptor>src/main/assembly/uat/assembly.xml</descriptor>
+                            </descriptors>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>
