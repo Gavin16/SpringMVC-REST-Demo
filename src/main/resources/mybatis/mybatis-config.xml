@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <!-- 读取外部properties文件  -->
+    <!--<bean id="dbPropertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">-->
+        <!--<property name="location" value="classpath:jdbc.properties"/>-->
+    <!--</bean>-->
+    <bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="jdbcUrl" value="jdbc:mysql://192.168.1.101:3306/spring_rest_demo?characterEncoding=utf-8" />
+        <property name="username" value="root" />
+        <property name="password" value="stone" />
+        <property name="maximumPoolSize" value="20" />
+        <property name="autoCommit" value="true" />
+     </bean>
+    <!-- 配置数据库连接  -->
+    <bean id="dataSource" class = "com.zaxxer.hikari.HikariDataSource">
+        <constructor-arg ref="hikariConfig"></constructor-arg>
+    </bean>
+
+    <!-- 配置sqlSessionFactoryBean 加载SQL映射文件  -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="mapperLocations" value="classpath*:/mapper/*Mapper.xml"/>
+        <!-- <property name="configLocation" value="classpath:SysAreaMapper.xml"/>  -->
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+    <!--
+        ScanMapperFiles 自动扫描com.service.mapper包下面所有接口
+           可直接在程序中使用dao接口，不用再获取sqlsession对象
+    -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.demo.repository" />
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+    </bean>
+
+</beans>

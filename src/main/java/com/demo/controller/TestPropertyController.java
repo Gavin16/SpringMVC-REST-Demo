@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("/test")
-@PropertySource(value = {"classpath:abc.properties","classpath:def.properties"})
+@PropertySource(value = {"classpath:test/abc.properties", "classpath:test/def.properties"})
 public class TestPropertyController {
 
     private static final Logger logger = LoggerFactory.getLogger(TestPropertyController.class);

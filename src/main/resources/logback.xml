@@ -20,6 +20,9 @@
         <encoder>
             <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}][%thread][%-5level]: %logger - %msg%n</pattern>
         </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>DEBUG</level>
+        </filter>
     </appender>
 
 
@@ -75,7 +78,7 @@
 
 
     <!-- root级别   DEBUG -->
-    <root level="debug">
+    <root level="INFO">
         <!-- 控制台输出 -->
         <appender-ref ref="STDOUT" />
         <!-- 文件输出 -->
