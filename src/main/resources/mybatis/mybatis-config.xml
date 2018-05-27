@@ -1,23 +1,50 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <!-- 读取外部properties文件  -->
     <!--<bean id="dbPropertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">-->
         <!--<property name="location" value="classpath:jdbc.properties"/>-->
     <!--</bean>-->
-    <bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
-        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-        <property name="jdbcUrl" value="jdbc:mysql://192.168.1.101:3306/spring_rest_demo?characterEncoding=utf-8" />
-        <property name="username" value="root" />
-        <property name="password" value="stone" />
-        <property name="maximumPoolSize" value="20" />
-        <property name="autoCommit" value="true" />
-     </bean>
+    <!-- Hikari 连接池配置 -->
+    <!--<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">-->
+        <!--<property name="driverClassName" value="com.mysql.jdbc.Driver" />-->
+        <!--<property name="jdbcUrl" value="jdbc:mysql://192.168.1.101:3306/spring_rest_demo?characterEncoding=utf-8" />-->
+        <!--<property name="username" value="root" />-->
+        <!--<property name="password" value="stone" />-->
+        <!--<property name="maximumPoolSize" value="20" />-->
+        <!--<property name="autoCommit" value="true" />-->
+     <!--</bean>-->
     <!-- 配置数据库连接  -->
-    <bean id="dataSource" class = "com.zaxxer.hikari.HikariDataSource">
-        <constructor-arg ref="hikariConfig"></constructor-arg>
+    <!--<bean id="dataSource" class = "com.zaxxer.hikari.HikariDataSource">-->
+        <!--<constructor-arg ref="hikariConfig"></constructor-arg>-->
+    <!--</bean>-->
+
+    <bean id="properyConfigure" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:jdbc.properties</value>
+                <!-- 如果使用了PropertyPlaceholderConfigurer 则@PropertySource 注解不再生效 -->
+                <value>classpath:/test/*.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="dataSource" class = "com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <property name="driverClassName" value="${jdbc.driver}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+
+        <property name="initialSize" value="10"/>
+        <property name="maxActive" value="30"/>
+        <property name="maxWait" value="20000"/>
+        <property name="minIdle" value="5"/>
+
+        <property name="testWhileIdle" value="true" />
+        <property name="testOnBorrow" value="false" />
+        <property name="testOnReturn" value="false" />
     </bean>
 
     <!-- 配置sqlSessionFactoryBean 加载SQL映射文件  -->
