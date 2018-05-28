@@ -2,6 +2,10 @@ package com.demo.utils;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * className: DateUtil
  * @author Minsky
@@ -107,5 +111,43 @@ public class DateUtil {
 	public static boolean isLeapYear(int year){
 		return (year%4 == 0 && year %100 != 0)||(year % 400 == 0)?true:false;
 	}
-	
+
+
+	/**
+	 * 使用SimpleDateFormate 判断某个日期是否是合法日期
+	 */
+//	public static void main(String[]args){
+//	    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//	    String dateStr = "2018-02-30";
+//		try {
+//			sdf.setLenient(false);
+//			Date date = sdf.parse(dateStr);
+//			System.out.println(sdf.format(date));
+//		} catch (ParseException e) {
+//			e.printStackTrace();
+//		}
+//	}
+
+	/**
+	 * 计算任意两个日期中间相隔多少天
+	 * @param begin_date
+	 * @param end_date
+	 * @return
+	 * @throws Exception
+	 */
+	public static long getInterval(Date begin_date, Date end_date) throws ParseException{
+		long day = 0;
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+		if(begin_date != null){
+			String begin = sdf.format(begin_date);
+			begin_date  = sdf.parse(begin);
+		}
+		if(end_date!= null){
+			String end= sdf.format(end_date);
+			end_date= sdf.parse(end);
+		}
+		day = (end_date.getTime()-begin_date.getTime())/(24*60*60*1000);
+		return day;
+	}
+
 }

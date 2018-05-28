@@ -1,7 +1,6 @@
 package com.demo.service.impl;
 
 import com.alibaba.druid.util.StringUtils;
-import com.demo.domain.AreaDTO;
 import com.demo.domain.SysAreaDTO;
 import com.demo.repository.AreaRepository;
 import com.demo.service.IdcardService;
@@ -74,7 +73,7 @@ public class IdcardServiceImpl implements IdcardService {
         // 随机生成地区编号
         // 考虑到目前表中仅包含3749条编号记录,随机生成0-3749的编号作为id查询即可获得地区编号
         Random random = new Random();
-        int id = Math.abs(random.nextInt() % 3750);
+        int id = random.nextInt(3750);
         logger.info("随机生成的id为：{}", id);
         Long areaCode = areaRepository.getAreaCodeById(id);
         logger.info("查询id得到areaCode为：{}", areaCode);
@@ -90,9 +89,9 @@ public class IdcardServiceImpl implements IdcardService {
             Calendar cal = Calendar.getInstance();
             int year = cal.get(Calendar.YEAR);
 
-            int yearDec = Math.abs(random.nextInt() % 60);
-            int month = Math.abs(random.nextInt() % 12);
-            int date = Math.abs(random.nextInt() % 31);
+            int yearDec = random.nextInt(40)+10;
+            int month = random.nextInt(12);
+            int date = random.nextInt(31);
 
             year = year - yearDec;
 
@@ -106,7 +105,7 @@ public class IdcardServiceImpl implements IdcardService {
         }
 
         // 随机生成倒数第四位 到 倒数第三位
-        int birthNum = Math.abs(random.nextInt() % 1000);
+        int birthNum = random.nextInt(1000);
         String birthNumStr = String.valueOf(birthNum);
         if (birthNum < 100) { //确保有三位
             birthNumStr = (birthNum < 10) ? "00" + birthNumStr : "0" + birthNumStr;
