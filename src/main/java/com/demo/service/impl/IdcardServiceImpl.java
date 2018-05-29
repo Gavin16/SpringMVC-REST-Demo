@@ -72,17 +72,29 @@ public class IdcardServiceImpl implements IdcardService {
     public String generateIdcard() {
         // 随机生成地区编号
         // 考虑到目前表中仅包含3749条编号记录,随机生成0-3749的编号作为id查询即可获得地区编号
+        logger.info("随机生成身份证号码接口被调用");
+        boolean repeate =true;
         Random random = new Random();
-        int id = random.nextInt(3750);
-        logger.info("随机生成的id为：{}", id);
-        Long areaCode = areaRepository.getAreaCodeById(id);
-        logger.info("查询id得到areaCode为：{}", areaCode);
-        String codeStr = String.valueOf(areaCode);
+
+        // 随机出来的地区编号可能是省级或者是市级; 有效的应该为区县级
+        int id = 0;
+        String codeStr = "";
+        while(repeate){
+            id = random.nextInt(3749)+1;
+            logger.info("随机生成的id为：{}", id);
+            Long areaCode = areaRepository.getAreaCodeById(id);
+            logger.info("查询id得到areaCode为：{}", areaCode);
+
+            if(checkAreaCode(areaCode)){
+                repeate = false;
+                codeStr = String.valueOf(areaCode);
+            }
+        }
 
         // 随机生成年份,月份和日期
         // 取当前年份 减 0到60之间的随机数得到年份数据,然后随机生成月份和日期,最后判断完整年月日是否合法,若不合法重复这几步
         // 若生成日期不合法,则重新生成
-        boolean repeate = true;
+        repeate = true;
         String dateStr = "";
 
         while (repeate) {
@@ -118,6 +130,19 @@ public class IdcardServiceImpl implements IdcardService {
 
         // 返回有效身份证号码
         return numberPart + validBit;
+    }
+
+    private Boolean checkAreaCode(Long areaCode) {
+        String areaCodeStr = String.valueOf(areaCode);
+        String partCut = "";
+        for(int i =0;i<=4;i+=2){
+            // 有效的行政区域应该是形如"110102"的格式,不包含"00"
+            partCut = areaCodeStr.substring(i,i+2);
+            if("00".equals(partCut)){
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override
