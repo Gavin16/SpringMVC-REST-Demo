@@ -8,13 +8,9 @@ package com.demo.enums;
  * @date: 2018/5/19 16:02
  */
 public enum ResultEnum {
-    SUCCESS(200,"调用成功"),
-    FAIL(201,"调用失败"),
-    ERROR_IDCARD(202,"无效的身份证号码"),
-    ERROR_BIRTHDAY(203,"无效的出生日期"),
-    ERROR_AREACODE(204,"无效的地区编号"),
-    EMPTY_IDCARD(205,"Idcard为空")
-    ;
+
+    SUCCESS(10000,"调用成功"),
+    QUERY_FAILURE(10001,"系统调用失败");
 
     private Integer code;
 
@@ -29,7 +25,15 @@ public enum ResultEnum {
         return code;
     }
 
+    public void setCode(Integer code) {
+        this.code = code;
+    }
+
     public String getMsg() {
         return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 }

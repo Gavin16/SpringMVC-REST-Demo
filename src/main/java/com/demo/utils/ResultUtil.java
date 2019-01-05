@@ -20,6 +20,14 @@ public class ResultUtil {
         return result;
     }
 
+    public static ResultBody error(Integer code ,String msg){
+        ResultBody result = new ResultBody();
+        result.setCode(code);
+        result.setMsg(msg);
+        result.setData(null);
+        return result;
+    }
+
     public static ResultBody error(ResultEnum resultEnum) {
         ResultBody result = new ResultBody();
         result.setCode(resultEnum.getCode());

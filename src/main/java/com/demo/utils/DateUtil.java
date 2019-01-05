@@ -36,19 +36,6 @@ public class DateUtil {
 	}
 	
 	/**
-	 * @Title: isLunValidDate
-	 * @param dateStr
-	 * @return boolean
-	 * date: 2017-12-9 上午11:12:40
-	 * @Description: 判断农历是否存在 ; 暂时不考虑农历
-	 * @throws
-	 */
-	public static boolean isLunValidDate(String dateStr){
-		
-		return false;
-	}
-	
-	/**
 	 * @Title: isDigit
 	 * @param digStr
 	 * @return boolean
@@ -113,20 +100,6 @@ public class DateUtil {
 	}
 
 
-	/**
-	 * 使用SimpleDateFormate 判断某个日期是否是合法日期
-	 */
-//	public static void main(String[]args){
-//	    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-//	    String dateStr = "2018-02-30";
-//		try {
-//			sdf.setLenient(false);
-//			Date date = sdf.parse(dateStr);
-//			System.out.println(sdf.format(date));
-//		} catch (ParseException e) {
-//			e.printStackTrace();
-//		}
-//	}
 
 	/**
 	 * 计算任意两个日期中间相隔多少天

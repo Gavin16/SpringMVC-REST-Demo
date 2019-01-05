@@ -1,7 +1,5 @@
 package com.demo.service;
 
-import com.demo.domain.AreaDTO;
-
 /**
  * @Title: ${FILE_NAME}
  * @Package: com.demo.service

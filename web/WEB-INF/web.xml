@@ -3,10 +3,10 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
          version="3.0">
 
-    <!--<context-param>-->
-        <!--<param-name>contextConfigLocation</param-name>-->
-        <!--<param-value>classpath:spring/application-context.xml</param-value>-->
-    <!--</context-param>-->
+    <!--<context-queryparam>-->
+        <!--<queryparam-name>contextConfigLocation</queryparam-name>-->
+        <!--<queryparam-value>classpath:spring/application-context.xml</queryparam-value>-->
+    <!--</context-queryparam>-->
 
     <!--<listener>-->
         <!--<description>配置Spring上下文监听器</description>-->

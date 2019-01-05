@@ -2,16 +2,10 @@ package com.demo.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.demo.domain.UserDTO;
-import com.demo.utils.DateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.web.bind.annotation.*;
-import sun.util.locale.provider.DateFormatProviderImpl;
-
-import java.text.SimpleDateFormat;
-import java.text.spi.DateFormatProvider;
 
 /**
  * @Package: com.demo.controller

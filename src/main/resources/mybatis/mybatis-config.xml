@@ -27,6 +27,7 @@
                 <value>classpath:jdbc.properties</value>
                 <!-- 如果使用了PropertyPlaceholderConfigurer 则@PropertySource 注解不再生效 -->
                 <value>classpath:/test/*.properties</value>
+                <value>classpath:config.properties</value>
             </list>
         </property>
     </bean>

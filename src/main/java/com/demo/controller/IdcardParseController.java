@@ -2,7 +2,10 @@ package com.demo.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.demo.domain.AreaDTO;
+import com.demo.enums.IdcardResultEnum;
 import com.demo.enums.ResultEnum;
+import com.demo.exception.IdcardException;
+import com.demo.exception.ServiceException;
 import com.demo.result.ResultBody;
 import com.demo.service.IdcardService;
 import com.demo.utils.ResultUtil;
@@ -32,26 +35,26 @@ public class IdcardParseController {
     IdcardService idcardService;
 
     @PostMapping("parse")
-    public ResultBody parseIdcard(@RequestBody String idcardObject) {
+    public ResultBody parseIdcard(@RequestBody String idcardObject) throws ServiceException {
         logger.info("传入参数为：{}", idcardObject);
         JSONObject json = JSONObject.parseObject(idcardObject);
         String idcard = json.getString("idcard");
 
         // 身份证校验
         if (!idcardService.checkIdcard(idcard)) {
-            return ResultUtil.error(ResultEnum.ERROR_IDCARD);
+            throw new IdcardException(IdcardResultEnum.ERROR_IDCARD);
         }
 
         // 查询该编号对应地区
         String area = idcardService.getAreaInfo(idcard);
         if (StringUtils.isEmpty(area)) {
-            return ResultUtil.error(ResultEnum.ERROR_AREACODE);
+            throw new IdcardException(IdcardResultEnum.ERROR_AREACODE);
         }
 
         // 解析生日
         String birthday = idcardService.getBirthday(idcard);
         if (StringUtils.isEmpty(area)) {
-            return ResultUtil.error(ResultEnum.ERROR_BIRTHDAY);
+            throw new IdcardException(IdcardResultEnum.ERROR_BIRTHDAY);
         }
 
         String gender = idcardService.getGender(idcard);

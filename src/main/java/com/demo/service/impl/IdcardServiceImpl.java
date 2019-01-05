@@ -73,19 +73,20 @@ public class IdcardServiceImpl implements IdcardService {
         // 随机生成地区编号
         // 考虑到目前表中仅包含3749条编号记录,随机生成0-3749的编号作为id查询即可获得地区编号
         logger.info("随机生成身份证号码接口被调用");
-        boolean repeate =true;
+        boolean repeate = true;
         Random random = new Random();
 
         // 随机出来的地区编号可能是省级或者是市级; 有效的应该为区县级
         int id = 0;
         String codeStr = "";
-        while(repeate){
-            id = random.nextInt(3749)+1;
+        while (repeate) {
+            // 地址表偏移量为 900000
+            id = random.nextInt(3749) + 900001;
             logger.info("随机生成的id为：{}", id);
             Long areaCode = areaRepository.getAreaCodeById(id);
             logger.info("查询id得到areaCode为：{}", areaCode);
 
-            if(checkAreaCode(areaCode)){
+            if (checkAreaCode(areaCode)) {
                 repeate = false;
                 codeStr = String.valueOf(areaCode);
             }
@@ -101,7 +102,7 @@ public class IdcardServiceImpl implements IdcardService {
             Calendar cal = Calendar.getInstance();
             int year = cal.get(Calendar.YEAR);
 
-            int yearDec = random.nextInt(40)+10;
+            int yearDec = random.nextInt(40) + 10;
             int month = random.nextInt(12);
             int date = random.nextInt(31);
 
@@ -135,10 +136,10 @@ public class IdcardServiceImpl implements IdcardService {
     private Boolean checkAreaCode(Long areaCode) {
         String areaCodeStr = String.valueOf(areaCode);
         String partCut = "";
-        for(int i =0;i<=4;i+=2){
+        for (int i = 0; i <= 4; i += 2) {
             // 有效的行政区域应该是形如"110102"的格式,不包含"00"
-            partCut = areaCodeStr.substring(i,i+2);
-            if("00".equals(partCut)){
+            partCut = areaCodeStr.substring(i, i + 2);
+            if ("00".equals(partCut)) {
                 return false;
             }
         }
