@@ -1,6 +1,7 @@
 package com.demo.service;
 
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.demo.domain.queryparam.AddressParam;
 import com.demo.exception.ServiceException;
@@ -20,5 +21,5 @@ public interface AddressService {
      * @param addressParam
      * @return
      */
-    JSONObject parseAddress(AddressParam addressParam) throws ServiceException;
+    JSONArray parseAddress(AddressParam addressParam) throws ServiceException;
 }

@@ -4,7 +4,9 @@ import com.alibaba.fastjson.JSONObject;
 import com.demo.domain.queryparam.AddressParam;
 import com.demo.enums.AddressResultEnum;
 import com.demo.exception.AddressException;
+import com.demo.result.ResultBody;
 import com.demo.service.impl.AddressServiceImpl;
+import com.demo.utils.ResultUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,13 +32,13 @@ public class AddressParseController {
 
 
     @RequestMapping("parse")
-    public JSONObject parseAddress(@RequestBody AddressParam param) throws Exception {
+    public ResultBody parseAddress(@RequestBody AddressParam param) throws Exception {
         if (!isParamOk(param)) {
             logger.error("接口调用必传参数为空");
             throw new AddressException(AddressResultEnum.PARAM_EMPTY_ERROR);
         }
 
-        return addressService.parseAddress(param);
+        return ResultUtil.success(addressService.parseAddress(param));
     }
 
 

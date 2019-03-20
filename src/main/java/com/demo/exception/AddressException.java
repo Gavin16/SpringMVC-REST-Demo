@@ -16,4 +16,6 @@ public class AddressException extends ServiceException {
     public AddressException(AddressResultEnum resultEnum){
         super(resultEnum.getCode(),resultEnum.getMsg());
     }
+
+
 }

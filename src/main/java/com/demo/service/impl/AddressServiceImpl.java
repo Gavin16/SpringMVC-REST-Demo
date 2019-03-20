@@ -1,5 +1,6 @@
 package com.demo.service.impl;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.demo.domain.queryparam.AddressParam;
 import com.demo.enums.AddressResultEnum;
@@ -40,7 +41,7 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public JSONObject parseAddress(AddressParam addressParam) throws ServiceException {
+    public JSONArray parseAddress(AddressParam addressParam) throws ServiceException {
         logger.info("地址解析传入参数为:{}",String.valueOf(addressParam));
         Map<String, String> queryparam = ConvertUtil.convertBeanToMap(addressParam);
 
@@ -57,8 +58,7 @@ public class AddressServiceImpl implements AddressService {
             throw new AddressException(AddressResultEnum.EXT_SERVICE_MSG.getCode(),
                     queryResult.getString(Constants.AddressConstants.INFO));
         }
-
-        return queryResult;
+        return queryResult.getJSONArray(Constants.AddressConstants.DEO_CODES);
     }
 
 

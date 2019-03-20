@@ -1,5 +1,6 @@
 package com.demo.utils;
 
+import com.alibaba.fastjson.JSON;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,7 +11,7 @@ import java.util.Map;
 /**
  * @Auther: Minsky
  * @Date: 2019/1/5 16:18
- * @Description: 提供集合到Bean 之间的转换
+ * @Description: 提供集合到Bean之间的转换
  */
 public class ConvertUtil {
 
@@ -41,6 +42,31 @@ public class ConvertUtil {
             logger.error("javaBean转为Map处理异常{}", e);
         }
 
+        return null;
+    }
+
+    /**
+     * @param map
+     * @return
+     * @Desctiption: 使用JSON 将map转化为Object;
+     */
+    public static <T> T convertMapToBean(Map<String,Object> map,Class<T> clazz){
+        String jsonString = JSON.toJSONString(map);
+        return JSON.parseObject(jsonString,clazz);
+    }
+
+    /**
+     * 使用 fastJson 将JavaBean 对象转化为Map
+     * @return
+     */
+    public static Map<String,String> convertBeanToMapWithJson(Object obj){
+        try {
+            String jsonStr = JSON.toJSONString(obj);
+            Map<String,String> map = JSON.parseObject(jsonStr,Map.class);
+            return map;
+        } catch (Exception e) {
+            logger.error("使用json将Bean转Map异常:{}",e);
+        }
         return null;
     }
 }
